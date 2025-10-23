@@ -39,8 +39,9 @@ export default async function BlogPage() {
                   </div>
                   <h2 className="text-2xl font-bold tracking-tight mb-2">
                     <Link 
-                      href={`/blog/${post.slug}`}
+                      href={post.url || `/blog/${post.slug}`}
                       className="hover:text-primary transition-colors"
+                      {...(post.url && { target: "_blank", rel: "noopener noreferrer" })}
                     >
                       {post.title}
                     </Link>
@@ -61,10 +62,11 @@ export default async function BlogPage() {
                     ))}
                   </div>
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={post.url || `/blog/${post.slug}`}
                     className="text-primary hover:underline font-medium"
+                    {...(post.url && { target: "_blank", rel: "noopener noreferrer" })}
                   >
-                    Read more →
+                    {post.url ? "Read on Medium →" : "Read more →"}
                   </Link>
                 </CardContent>
               </Card>

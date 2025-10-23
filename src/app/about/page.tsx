@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Section, Card, CardContent, CTA } from '@/components'
+import { Section, Card, CardContent, CTA, ExperienceTimeline } from '@/components'
 
 export const metadata = {
   title: 'About',
@@ -35,6 +35,52 @@ const skills = [
   'GSAP, Framer Motion, WCAG Accessibility'
 ]
 
+const experiences = [
+  {
+    title: 'Software Engineer',
+    company: 'Four Nine Digital',
+    period: 'March 2022 - September 2025',
+    description: 'Drove full-stack development and AWS infrastructure for high-impact client projects, including GotCare (national healthcare platform) and Amazon/Twitch IVS (interactive streaming demos). Operated across React, GraphQL, and cloud ecosystems, bridging architecture with performance and mentoring engineers across teams.',
+    achievements: [
+      'Architected and deployed AWS environments using CDK (ECS Fargate, Aurora PostgreSQL, Cognito, Lambda, EventBridge, WAF, S3, CloudFront) to deliver secure, scalable platforms.',
+      'Integrated Salesforce APIs, GraphQL, and Supabase to support hybrid data ownership and multi-tenant system design.',
+      'Developed React / Next.js applications with advanced animations (GSAP, Framer Motion) and WCAG-compliant accessibility.',
+      'Implemented CI/CD pipelines via GitHub Actions for automated testing, deployment, and rollback management.',
+      'Built real-time streaming experiences (<300 ms latency) using Amazon IVS SDK and Next.js for developer enablement and demos.',
+      'Authored documentation and mentored peers on infrastructure standards, cloud patterns, and deployment workflows.',
+      'Drove alignment between engineering, product, and leadership—strengthening platform reliability and customer-focused delivery.'
+    ],
+    technologies: ['AWS', 'CDK', 'ECS Fargate', 'Aurora PostgreSQL', 'Cognito', 'Lambda', 'EventBridge', 'React', 'Next.js', 'GraphQL', 'TypeScript', 'GitHub Actions', 'Amazon IVS', 'GSAP', 'Framer Motion']
+  },
+  {
+    title: 'Software Developer',
+    company: 'Operto Guest Technologies',
+    period: 'August 2019 - July 2021',
+    description: 'Contributed to Operto\'s hospitality SaaS platform, building high-performance React interfaces and real-time IoT integrations that connected guests, hotels, and smart devices to deliver seamless digital experiences.',
+    achievements: [
+      'Developed and optimized React-based web and mobile interfaces, enhancing usability, accessibility, and performance across connected properties.',
+      'Integrated IoT device controls (locks, thermostats, sensors) into real-time workflows, improving reliability and guest satisfaction.',
+      'Collaborated with product, firmware, and QA teams to deliver stable, customer-driven releases and maintain a culture of open communication.',
+      'Improved efficiency through automation tooling and front-end performance optimizations.',
+      'Strengthened expertise in front-end architecture and IoT-driven systems, laying the foundation for later cloud-scale engineering leadership.'
+    ],
+    technologies: ['React', 'JavaScript', 'IoT Integration', 'Real-time Systems', 'Mobile Development', 'Performance Optimization', 'Team Collaboration']
+  },
+  {
+    title: 'Financial Advisor',
+    company: 'Scotiabank',
+    period: 'May 2015 - August 2019',
+    description: 'Delivered client-focused financial strategies for a $50M+ portfolio, strengthening communication, collaboration, and long-term planning skills—foundations for customer-centric engineering leadership.',
+    achievements: [
+      'Managed a $50M+ portfolio with focus on client relationship building and strategic financial planning.',
+      'Recognized with the "Best of the Best" Award (2018) for excellence in performance, integrity, and teamwork.',
+      'Developed strong communication and collaboration skills that translate to effective engineering leadership.',
+      'Built foundation in customer-centric approaches and long-term strategic thinking.'
+    ],
+    technologies: ['Financial Planning', 'Client Relations', 'Portfolio Management', 'Team Leadership', 'Strategic Planning']
+  }
+]
+
 export default function AboutPage() {
   return (
     <>
@@ -48,7 +94,7 @@ export default function AboutPage() {
               </h1>
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg text-muted-foreground mb-6">
-                  I&apos;m a Senior Full Stack Engineer with 6+ years of experience 
+                  I&apos;m a Software Developer with 6+ years of experience 
                   architecting secure, scalable systems across healthcare, fintech, and IoT. 
                   Currently at Four Nine Digital, I drive full-stack development and AWS 
                   infrastructure for high-impact client projects including GotCare (national 
@@ -159,63 +205,7 @@ export default function AboutPage() {
             </p>
           </div>
           
-          <div className="space-y-8">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="h-4 w-4 rounded-full bg-primary mt-2"></div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Senior Solutions Architect</h3>
-                <p className="text-sm text-muted-foreground mb-2">TechCorp • 2022 - Present</p>
-                <p className="text-sm">
-                  Leading cloud architecture initiatives for enterprise clients, 
-                  implementing microservices patterns, and building AI-powered solutions.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="h-4 w-4 rounded-full bg-primary mt-2"></div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Full-Stack Developer</h3>
-                <p className="text-sm text-muted-foreground mb-2">StartupXYZ • 2020 - 2022</p>
-                <p className="text-sm">
-                  Built scalable web applications from scratch, implemented CI/CD pipelines, 
-                  and integrated third-party APIs and AI services.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="h-4 w-4 rounded-full bg-primary mt-2"></div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Backend Developer</h3>
-                <p className="text-sm text-muted-foreground mb-2">DataFlow Inc • 2018 - 2020</p>
-                <p className="text-sm">
-                  Developed high-performance APIs and data processing systems, 
-                  optimized database queries, and implemented monitoring solutions.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className="h-4 w-4 rounded-full bg-primary mt-2"></div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Software Engineer</h3>
-                <p className="text-sm text-muted-foreground mb-2">WebSolutions • 2016 - 2018</p>
-                <p className="text-sm">
-                  Started my career building web applications, learning best practices, 
-                  and contributing to open-source projects.
-                </p>
-              </div>
-            </div>
-          </div>
+          <ExperienceTimeline experiences={experiences} />
         </div>
       </Section>
 

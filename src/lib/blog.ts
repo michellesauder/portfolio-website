@@ -13,6 +13,7 @@ export interface BlogPost {
   tags: string[]
   content: string
   featured?: boolean
+  url?: string
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
@@ -30,6 +31,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       tags: data.tags || [],
       content: content,
       featured: data.featured || false,
+      url: data.url,
     }
   } catch (error) {
     console.error(`Error reading blog post ${slug}:`, error)

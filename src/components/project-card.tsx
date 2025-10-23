@@ -12,8 +12,8 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card hover className="h-full" data-testid="project-card">
-      <CardHeader>
+    <Card hover className="h-full flex flex-col" data-testid="project-card">
+      <CardHeader className="flex-shrink-0">
         <div className="aspect-video relative overflow-hidden rounded-md mb-4">
           <Image
             src={project.hero}
@@ -28,7 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <p className="text-muted-foreground text-sm">{project.summary}</p>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 flex-grow flex flex-col">
         {(project.role || project.timeframe) && (
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
@@ -68,7 +68,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-4">
+        <div className="flex items-center justify-between pt-4 mt-auto">
           <CTA href={`/projects/${project.slug}`} variant="outline" size="sm">
             View Details
           </CTA>

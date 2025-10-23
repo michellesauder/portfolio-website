@@ -64,7 +64,7 @@ export default async function ProjectsPage() {
       {/* Projects Grid */}
       <Section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 items-stretch">
             {projects.map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
