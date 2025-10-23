@@ -1,61 +1,227 @@
 ---
-title: Amazon/Twitch IVS Interactive Streaming Demos
-description: Built real-time interactive streaming experiences with sub-300ms latency using Amazon IVS SDK and Next.js
+title: "Amazon IVS Realtime Web Demo (React)"
+subtitle: "Ultra‑low latency live video with multi‑host stages in the browser"
+role: "Senior Full‑Stack Engineer (Contract)"
+date: "2025"
+location: "Vancouver, BC → Presented at an Amazon conference in Japan"
+links:
+  - label: "GitHub Repository"
+    href: "https://github.com/aws-samples/amazon-ivs-realtime-web-demo-reactjs"
+  - label: "Amazon IVS Realtime"
+    href: "https://aws.amazon.com/ivs/realtime/"
+tech:
+  - React (hooks)
+  - Next.js (app/router)
+  - TypeScript
+  - Amazon IVS Realtime (WebRTC, Stages API)
+  - AWS Lambda / API Gateway (token service)
+  - Amazon Cognito (auth) or JWT
+  - CloudFront + S3 (static web hosting)
+  - CDK / IaC (deployment automation)
+  - Playwright + Jest (testing)
 slug: amazon-twitch-ivs
-summary: Developed interactive streaming demos for Amazon/Twitch IVS, showcasing ultra-low latency streaming capabilities for developers.
-role: Senior Software Engineer
-timeframe: 2024
-stack: [React, Next.js, TypeScript, Amazon IVS, Node.js, AWS Lambda, WebSockets, Tailwind CSS]
-outcomes: [Sub-300ms latency achieved, Real-time interactive features, Developer-friendly demos, Scalable streaming architecture]
+summary: A production‑grade web demo showcasing Amazon IVS Realtime (WebRTC) with sub‑300ms end‑to‑end latency, built to demonstrate modern multi‑participant live video directly in the browser.
 hero: /images/projects/amazon-twitch/hero.svg
 repo: https://github.com/aws-samples/amazon-ivs-realtime-web-demo-reactjs
 featured: true
 ---
 
-# Amazon/Twitch IVS Streaming Platform
+# Overview
 
-Real-time interactive streaming platform built with Amazon IVS SDK and Next.js, delivering sub-300ms latency for developer enablement and interactive demos.
+A production‑grade **web demo** showcasing **Amazon IVS Realtime** (WebRTC) with **sub‑300ms end‑to‑end latency**, built to demonstrate modern multi‑participant live video directly in the browser. The app implements **stage creation**, **host/guest controls**, **viewer mode**, **device management**, **screen share**, and **moderation** with a clean, responsive UI. It was presented by Amazon at a conference in **Japan**, where it served as the canonical example of how to build interactive live experiences on IVS Realtime with React.
+
+# My Role & Scope
+
+* **Lead implementer (contract):** Shipped the React/Next.js frontend, auth & token flow, and the infra glue that connects browser clients to IVS Realtime Stages.
+* **Demo hardening:** Turned sample code into a **conference‑ready showcase**: error states, device fallbacks, connection health, and UX polish.
+* **Developer enablement:** Wrote concise docs and inline guidance so teams can extend the demo for their own use cases (townhalls, shoppable video, classrooms).
+
+# Problem
+
+Live video is easy; **interactive, multi‑host live** at **WebRTC‑level latency** is hard. Teams struggle with:
+
+* Managing **stage roles** (host/guest/viewer) and participant lifecycles.
+* Securely issuing **ephemeral participant tokens** server‑side.
+* Handling **device permissions**, network variability, and reconnections with dignity.
+
+# Solution
+
+A modular React app that demonstrates the **end‑to‑end flow**:
+
+1. **Auth** → (Cognito/JWT) identifies user & role.
+2. **Token service** → AWS Lambda issues **short‑lived IVS Realtime tokens**.
+3. **Join stage** → Client SDK publishes/subscribes media; role‑based UI gates controls.
+4. **Moderation** → Host admits/kicks, toggles AV, sets max participants.
+5. **Resilience** → Connection state machine with clear user feedback and retry.
+
+# Architecture (High Level)
+
+```
+[Client (Next.js/React)]
+  ├─ Auth (Cognito/JWT)
+  ├─ Stage UI (Host/Guest/Viewer)
+  ├─ Device & Media (getUserMedia, screenshare)
+  └─ IVS Realtime SDK (publish/subscribe)
+        │
+        ▼
+[API Gateway] → [Lambda token service] → [Amazon IVS Realtime Stages]
+        │
+        └─ (Optional) metrics/logs → CloudWatch
+
+Static hosting: S3 + CloudFront
+IaC: AWS CDK
+```
+
+# Key Features
+
+* **Sub‑300ms latency** WebRTC streaming with **IVS Realtime**
+* **Multi‑host stages:** hosts, guests, viewers; admit/deny, mute/kick
+* **Device management:** camera/mic selectors, echo test, screen share
+* **Health & diagnostics:** connection state, bitrate/framerate indicators
+* **Responsive UI:** keyboard shortcuts, accessible controls, mobile layouts
+* **Secure token issuance:** short‑lived participant tokens from Lambda
+
+# UX & Accessibility
+
+* Clear **pre‑join** checks (device, mic level, name/role)
+* Focus management & ARIA labels for core controls
+* Non‑blocking toasts for state changes and errors
+
+# DevOps & Quality
+
+* **CI/CD**: build, type‑check, lint, and deploy artifact to S3/CloudFront
+* **Playwright** journey tests for join/leave, mute/unmute, screen share
+* **Feature flags** for demo vs. production behavior
+
+# Impact
+
+* Used live on stage at an **Amazon conference (Japan)** as a customer‑ready reference.
+* Accelerated partner teams: they could fork the repo and launch a tailored POC in days instead of weeks.
+* Internally adopted as a **teaching tool** for IVS Realtime best practices.
+
+# What I Owned (Quick Bullets)
+
+* React component architecture for **Stage**, **Roster**, **DevicePanel**, **PreJoin**
+* **Token API** contract & Lambda handler (Node/TypeScript)
+* Error‑handling patterns and reconnect flow
+* Visual polish: grid layouts, empty states, loading & retry UX
+
+# Selected Challenges & How I Solved Them
+
+* **Device permission edge cases**: Added progressive prompts and fallbacks (default devices, hot‑swap handlers) so users never land in a "dead" state.
+* **Network volatility**: Implemented a lightweight **connection state machine** with exponential backoff and user feedback; preserved UI state between reconnects.
+* **Role‑based gating**: Centralized capability checks (e.g., only hosts can admit/kick) to keep UI logic simple and auditable.
+
+# Results
+
+* Reliable, repeatable **conference demo** experience.
+* Clean codebase others can extend for real products (education, events, commerce).
+
+# How to Run Locally (excerpt)
+
+1. Clone repo & install deps
+2. Provision IVS Realtime stage and token service (CDK or CloudFormation)
+3. Set env vars for **TOKEN_API_URL** and auth provider
+4. `npm run dev` → open the app with two browser windows to simulate host/guest
+
+# Talking Points (Interview Ready)
+
+* "We hit **sub‑300ms** end‑to‑end latency and supported **N** concurrent publishers by keeping media logic off the main React tree and relying on the IVS client SDK's track events."
+* "We issued **short‑lived participant tokens** via Lambda; the browser never sees AWS credentials."
+* "I implemented a **reconnect state machine** so volatile networks degrade gracefully without user confusion."
+
+# Screenshots / Media (placeholders)
+
+* Pre‑Join screen (device select)
+* Stage grid (host + guests)
+* Device panel & moderation controls
+* Connection health indicators
+
+# Credits
+
+* Built as a contractor in collaboration with Amazon teams. Open‑sourced as an **AWS Samples** repository.
+
+# Link
+
+* GitHub: [https://github.com/aws-samples/amazon-ivs-realtime-web-demo-reactjs](https://github.com/aws-samples/amazon-ivs-realtime-web-demo-reactjs)
+
+---
+
+# Amazon IVS UGC Platform Web Demo
+
+A comprehensive **User-Generated Content (UGC) live streaming platform** built with Amazon IVS, demonstrating how to create a full-featured streaming service with user authentication, live video playback, live chat, interactive virtual experiences, and stream monitoring.
 
 ## Project Overview
 
-Developed interactive streaming experiences for Amazon/Twitch IVS (Interactive Video Service), enabling real-time developer demos and community engagement with ultra-low latency streaming capabilities.
+This educational demo showcases a complete UGC platform architecture using Amazon IVS in conjunction with other AWS services. The platform enables users to create accounts, go live, interact with viewers through chat, and provides comprehensive stream analytics and monitoring capabilities.
 
 ## Technical Implementation
 
-### Real-Time Streaming
-- **Amazon IVS SDK**: Integration with Amazon&apos;s Interactive Video Service
-- **Sub-300ms Latency**: Optimized streaming for real-time interaction
-- **WebRTC**: Peer-to-peer communication for interactive features
-- **Stream Management**: Dynamic stream creation and management
+### Core Platform Features
+- **User Registration & Authentication**: Amazon Cognito integration with sign-up, login, and password reset flows
+- **Live Streaming**: Amazon IVS integration for low-latency video streaming
+- **Live Chat**: Real-time messaging system for viewer interaction
+- **Stream Management**: Channel creation, stream monitoring, and analytics
+- **Interactive Experiences**: Virtual experiences and engagement features
 
-### Frontend Development
-- **Next.js**: Server-side rendering for optimal performance
-- **React**: Interactive UI components for streaming controls
-- **TypeScript**: Type-safe development with real-time data handling
-- **Responsive Design**: Mobile-first approach for cross-device compatibility
+### Architecture Components
+- **Frontend**: React-based web application with responsive design
+- **Backend**: ECS Fargate service with Application Load Balancer
+- **Database**: DynamoDB tables for channels and stream metrics
+- **Authentication**: Cognito User Pool with Lambda triggers
+- **CDN**: CloudFront distribution for global content delivery
+- **Infrastructure**: AWS CDK v2 for Infrastructure as Code
 
-### Backend Infrastructure
-- **AWS Lambda**: Serverless functions for stream management
-- **API Gateway**: RESTful APIs for stream operations
-- **DynamoDB**: Real-time data storage for stream metadata
-- **CloudWatch**: Monitoring and analytics for stream performance
+### AWS Services Integration
+- **Amazon IVS**: Interactive Video Service for live streaming
+- **Amazon Cognito**: User authentication and management
+- **DynamoDB**: Data storage for channels and metrics
+- **ECS Fargate**: Containerized backend services
+- **API Gateway**: RESTful API endpoints
+- **EventBridge**: Event-driven architecture for IVS events
+- **Lambda**: Serverless functions for user management and cleanup
+- **Secrets Manager**: Secure credential management
+- **CloudWatch**: Monitoring and logging
 
-## Key Achievements
+## Key Features Delivered
 
-- **Ultra-Low Latency**: Achieved consistent sub-300ms streaming latency
-- **Scalability**: Designed for concurrent stream handling
-- **Developer Experience**: Created intuitive APIs for stream integration
-- **Performance**: Optimized for minimal resource consumption
-- **Reliability**: Robust error handling and stream recovery
+* **Complete User Journey**: Registration → Authentication → Channel Creation → Live Streaming → Chat Interaction
+* **Real-time Chat**: Live messaging system for viewer engagement
+* **Stream Analytics**: Comprehensive monitoring and metrics collection
+* **Scalable Architecture**: Designed to handle multiple concurrent streams
+* **Security**: Secure authentication flows and credential management
+* **Monitoring**: Real-time stream health and performance tracking
 
-## Impact
+## My Contributions
 
-The platform successfully enabled Amazon and Twitch to showcase interactive streaming capabilities to developers, demonstrating the power of real-time video interaction and fostering community engagement through low-latency streaming experiences.
+* **Frontend Development**: React components for streaming interface, chat, and user management
+* **Backend Integration**: API development and AWS service integration
+* **Infrastructure**: CDK stack configuration and deployment automation
+* **User Experience**: Streamlined authentication flows and intuitive streaming interface
+* **Documentation**: Educational materials and deployment guides
 
-## Technologies Used
+## Technical Challenges Solved
 
-- Next.js, React, TypeScript
-- Amazon IVS SDK, WebRTC
-- AWS (Lambda, API Gateway, DynamoDB, CloudWatch)
-- Real-time streaming protocols
-- Interactive video technologies
+* **Multi-service Integration**: Seamlessly connecting Cognito, IVS, DynamoDB, and ECS services
+* **Real-time Data Flow**: Implementing efficient event-driven architecture for live updates
+* **Scalable Chat System**: Building responsive chat functionality for concurrent users
+* **Stream Management**: Creating robust channel and stream lifecycle management
+
+## Impact & Usage
+
+* **Educational Resource**: Serves as a comprehensive reference for building UGC platforms with Amazon IVS
+* **Developer Enablement**: Provides complete codebase and deployment instructions
+* **AWS Best Practices**: Demonstrates proper integration patterns for AWS services
+* **Production-Ready Patterns**: Shows how to structure a scalable streaming platform
+
+## Repository & Resources
+
+* **GitHub**: [https://github.com/aws-samples/amazon-ivs-ugc-platform-web-demo](https://github.com/aws-samples/amazon-ivs-ugc-platform-web-demo)
+* **AWS Documentation**: [Amazon IVS Documentation](https://docs.aws.amazon.com/ivs/)
+* **Deployment Guide**: Complete CDK deployment instructions included
+
+---
+
+## Portfolio Card (TL;DR)
+
+**Amazon IVS Projects** — Led development of two major Amazon IVS demos: (1) **IVS Realtime Web Demo** with sub‑300ms multi‑host streaming presented at Amazon Japan conference, and (2) **UGC Platform Web Demo** showcasing complete user-generated content streaming platform with authentication, chat, and analytics. Both projects are open-sourced as AWS Samples repositories. [Realtime Demo →](https://github.com/aws-samples/amazon-ivs-realtime-web-demo-reactjs) | [UGC Platform →](https://github.com/aws-samples/amazon-ivs-ugc-platform-web-demo)
