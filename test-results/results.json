@@ -1,0 +1,230 @@
+{
+  "config": {
+    "configFile": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/playwright.config.ts",
+    "rootDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 8,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "links.spec.ts",
+      "file": "links.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Link Verification",
+          "file": "links.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should verify all pages load without 404 errors",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1714,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/projects\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/projects\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/projects\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/projects\", waiting until \"load\"\u001b[22m\n\n    at /Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests/links.spec.ts:193:35",
+                        "location": {
+                          "file": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests/links.spec.ts",
+                          "column": 35,
+                          "line": 193
+                        },
+                        "snippet": "  191 |\n  192 |     for (const pagePath of pages) {\n> 193 |       const response = await page.goto(pagePath)\n      |                                   ^\n  194 |       expect(response?.status()).toBe(200)\n  195 |       await expect(page.locator('h1')).toBeVisible()\n  196 |     }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests/links.spec.ts",
+                            "column": 35,
+                            "line": 193
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/projects\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/projects\", waiting until \"load\"\u001b[22m\n\n\n  191 |\n  192 |     for (const pagePath of pages) {\n> 193 |       const response = await page.goto(pagePath)\n      |                                   ^\n  194 |       expect(response?.status()).toBe(200)\n  195 |       await expect(page.locator('h1')).toBeVisible()\n  196 |     }\n    at /Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests/links.spec.ts:193:35"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-10-22T20:13:22.806Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results/links-Link-Verification-sh-85863-ges-load-without-404-errors-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/test-results/links-Link-Verification-sh-85863-ges-load-without-404-errors-chromium/video.webm"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests/links.spec.ts",
+                        "column": 35,
+                        "line": 193
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f3986e67d50a5ed8c69e-249b62c47500a1fdeca6",
+              "file": "links.spec.ts",
+              "line": 181,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-10-22T20:13:17.344Z",
+    "duration": 7511.908,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

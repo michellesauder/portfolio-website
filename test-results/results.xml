@@ -1,0 +1,39 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="7.511908">
+<testsuite name="links.spec.ts" timestamp="2025-10-22T20:13:22.143Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1.714" errors="0">
+<testcase name="Link Verification › should verify all pages load without 404 errors" classname="links.spec.ts" time="1.714">
+<failure message="links.spec.ts:181:7 should verify all pages load without 404 errors" type="FAILURE">
+<![CDATA[  [chromium] › links.spec.ts:181:7 › Link Verification › should verify all pages load without 404 errors 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/projects
+    Call log:
+      - navigating to "http://localhost:3000/projects", waiting until "load"
+
+
+      191 |
+      192 |     for (const pagePath of pages) {
+    > 193 |       const response = await page.goto(pagePath)
+          |                                   ^
+      194 |       expect(response?.status()).toBe(200)
+      195 |       await expect(page.locator('h1')).toBeVisible()
+      196 |     }
+        at /Users/michellesauder/Desktop/Portfolio/repos/portfolio-website/tests/links.spec.ts:193:35
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/links-Link-Verification-sh-85863-ges-load-without-404-errors-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/links-Link-Verification-sh-85863-ges-load-without-404-errors-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|links-Link-Verification-sh-85863-ges-load-without-404-errors-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|links-Link-Verification-sh-85863-ges-load-without-404-errors-chromium/video.webm]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
