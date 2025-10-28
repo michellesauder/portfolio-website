@@ -118,3 +118,6 @@ async function removePendingSubmission(id) {
   // Implement IndexedDB logic to remove submission
 }
 
+
+
+
